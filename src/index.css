@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.custom-grid-columns {
+    grid-template-columns: repeat(2, 500px);
+}
+.home-grid-columns {
+    grid-template-columns: repeat(4, 500px);
+}
+.custom-width {
+    width: 450px;
+}
+body {
+    background: black;
+    color: white;
+}
+

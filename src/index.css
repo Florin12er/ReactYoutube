@@ -7,6 +7,9 @@
 .home-grid-columns {
     grid-template-columns: repeat(4, 500px);
 }
+.app-grid-columns {
+    grid-template-columns: repeat(2, 200px);
+}
 .custom-width {
     width: 450px;
 }

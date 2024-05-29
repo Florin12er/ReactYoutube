@@ -2,28 +2,242 @@ import { Button } from "@headlessui/react";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
-const SidebarComponent = ({ svg, name }) => {
+const SidebarShortPart = [
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path fill="white" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path>
+      </svg>
+    ),
+    name: "Home",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="m18.931 9.99l-1.441-.601l1.717-.913a4.48 4.48 0 0 0 1.874-6.078a4.506 4.506 0 0 0-6.09-1.874L4.792 5.929a4.5 4.5 0 0 0-2.402 4.193a4.52 4.52 0 0 0 2.666 3.904c.036.012 1.442.6 1.442.6l-1.706.901a4.51 4.51 0 0 0-2.369 3.967A4.53 4.53 0 0 0 6.93 24c.725 0 1.437-.174 2.08-.508l10.21-5.406a4.49 4.49 0 0 0 2.39-4.192a4.53 4.53 0 0 0-2.678-3.904Zm-9.334 5.2V8.824l6.007 3.184z"
+        ></path>
+      </svg>
+    ),
+    name: "Shorts",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="M4.616 21q-.691 0-1.153-.462T3 19.385v-8.77q0-.69.463-1.152T4.615 9h14.77q.69 0 1.152.463T21 10.616v8.769q0 .69-.463 1.153T19.385 21zm0-1h14.769q.23 0 .423-.192t.192-.424v-8.768q0-.231-.192-.424T19.385 10H4.615q-.23 0-.423.192T4 10.616v8.769q0 .23.192.423t.423.192m5.885-1.923L15.116 15L10.5 11.923zm-6-10.846v-1h15v1zm3-2.77v-1h9v1zM4 20V10z"
+        ></path>
+      </svg>
+    ),
+    name: "Subscriptions",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path fill="white" d="M4 8H2v12a2 2 0 0 0 2 2h12v-2H4z"></path>
+        <path
+          fill="white"
+          d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2m-9 12V6l7 4z"
+        ></path>
+      </svg>
+    ),
+    name: "You",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"
+        ></path>
+      </svg>
+    ),
+    name: "History",
+  },
+];
+const SideBarBigPart = [
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path fill="white" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path>
+      </svg>
+    ),
+    name: "Home",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="m18.931 9.99l-1.441-.601l1.717-.913a4.48 4.48 0 0 0 1.874-6.078a4.506 4.506 0 0 0-6.09-1.874L4.792 5.929a4.5 4.5 0 0 0-2.402 4.193a4.52 4.52 0 0 0 2.666 3.904c.036.012 1.442.6 1.442.6l-1.706.901a4.51 4.51 0 0 0-2.369 3.967A4.53 4.53 0 0 0 6.93 24c.725 0 1.437-.174 2.08-.508l10.21-5.406a4.49 4.49 0 0 0 2.39-4.192a4.53 4.53 0 0 0-2.678-3.904Zm-9.334 5.2V8.824l6.007 3.184z"
+        ></path>
+      </svg>
+    ),
+    name: "Shorts",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="M4.616 21q-.691 0-1.153-.462T3 19.385v-8.77q0-.69.463-1.152T4.615 9h14.77q.69 0 1.152.463T21 10.616v8.769q0 .69-.463 1.153T19.385 21zm0-1h14.769q.23 0 .423-.192t.192-.424v-8.768q0-.231-.192-.424T19.385 10H4.615q-.23 0-.423.192T4 10.616v8.769q0 .23.192.423t.423.192m5.885-1.923L15.116 15L10.5 11.923zm-6-10.846v-1h15v1zm3-2.77v-1h9v1zM4 20V10z"
+        ></path>
+      </svg>
+    ),
+    name: "Subscriptions",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path fill="white" d="M4 8H2v12a2 2 0 0 0 2 2h12v-2H4z"></path>
+        <path
+          fill="white"
+          d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2m-9 12V6l7 4z"
+        ></path>
+      </svg>
+    ),
+    name: "You",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="white"
+          d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"
+        ></path>
+      </svg>
+    ),
+    name: "History",
+  },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="1em"
+        height="1em"
+        viewBox="0 0 14 14"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6.15.555a.389.389 0 0 0-.399 0a.26.26 0 0 0-.06.34c1.227 2.123 1.486 5.016-.19 6.611a5.505 5.505 0 0 1-1.495-1.994a3.88 3.88 0 0 0-1.995 3.49a4.688 4.688 0 0 0 4.987 4.488c3.211 0 4.877-1.994 4.986-4.488C12.114 6.01 9.99 2.33 6.15.555"
+        ></path>
+      </svg>
+    ),
+    name: "Trending",
+  },
+];
+const SidebarComponent = ({ svg, name, id }) => {
   return (
     <>
-      <div className="w-full hover:bg-gray-500 rounded-xl">
+      <div id={id} className="w-full hover:bg-gray-500 rounded-xl">
         <div className="flex justify-center items-center p-4">
           <Button>{svg}</Button>
         </div>
-        <h3 className="text-center text-xs">{name}</h3>
+        <h3 id="text" className="text-center text-xs">
+          {name}
+        </h3>
       </div>
     </>
   );
 };
+
 
 SidebarComponent.propTypes = {
   svg: PropTypes.node, // Change this to PropTypes.node to accept JSX elements
   name: PropTypes.string.isRequired,
 };
 const Menu = () => {
+  const [isSidebarActive, setIsSidebarActive] = useState(false);
+
+  function ChangeTheme() {
+    const Sidebar = document.getElementById("sidebar");
+    const Parts = document.querySelectorAll("#part");
+    const Texts = document.querySelectorAll("#text");
+
+    setIsSidebarActive(!isSidebarActive);
+
+    if (Sidebar.className === "deactivate") {
+      Sidebar.className = "activate";
+      Parts.forEach((part) => {
+        part.className =
+          "w-full grid sidebar-grid-columns items-center hover:bg-gray-500 rounded-xl";
+      });
+      Texts.forEach((text) => {
+        text.className = "text-center text-2xl";
+      });
+    } else {
+      Sidebar.className = "deactivate";
+      Parts.forEach((part) => {
+        part.className = "w-full hover:bg-gray-500 rounded-xl";
+      });
+      Texts.forEach((text) => {
+        text.className = "text-center text-xs";
+      });
+    }
+  }
+  const currentSidebarParts = isSidebarActive ? SideBarBigPart : SidebarShortPart;
   return (
     <>
       <div className="flex p-4 relative">
-        <div className="w-12 p-2 hover:bg-zinc-400 rounded-full">
+        <div
+          onClick={ChangeTheme}
+          className="w-12 p-2 cursor-pointer hover:bg-zinc-400 rounded-full"
+        >
           <div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,106 +267,16 @@ const Menu = () => {
               fill="#fff"
               d="m65.413 81.788l42.362-24.536l-42.362-24.537z"
             ></path>
-            <path
-              fill="white"
-              d="M491.237 33.24c5.557 0 9.751 1.048 12.687 3.04c2.936 1.993 5.034 5.138 6.292 9.438c1.258 4.299 1.782 10.17 1.782 17.72v12.269H485.05v3.774l.42 10.381c.314 2.307.839 3.985 1.677 5.033c.84 1.049 2.202 1.573 3.985 1.573c2.412 0 4.09-.943 4.928-2.83c.944-1.888 1.363-5.034 1.468-9.333l13.946.839c.105.629.105 1.468.105 2.516c0 6.606-1.783 11.535-5.453 14.785c-3.67 3.25-8.703 4.928-15.309 4.928c-7.969 0-13.526-2.516-16.672-7.444C471 95 469.322 87.24 469.322 76.86V64.172c.356-17.825 3.491-30.88 21.915-30.932m-193.88 1.363v52.533c0 3.146.314 5.453 1.048 6.816c1.489 2.915 5.348 2.17 7.445.734a8.389 8.389 0 0 0 2.831-3.25V34.602h16.043v71.617h-12.583l-1.363-8.808h-.314c-3.46 6.606-8.599 9.961-15.414 9.961c-10.49-.026-13.057-7.584-13.668-15.26l-.04-.541a65.277 65.277 0 0 1-.133-3.492V34.603zm82.732 0v52.533c0 3.146.314 5.453 1.048 6.816c1.49 2.915 5.348 2.17 7.445.734a8.389 8.389 0 0 0 2.831-3.25V34.602h16.043v71.617h-12.583l-1.363-8.808h-.314c-3.46 6.606-8.599 9.961-15.414 9.961c-10.49-.026-13.057-7.584-13.668-15.26l-.04-.541a65.278 65.278 0 0 1-.133-3.492V34.603zM250.8 33.24c5.243 0 9.542 1.048 12.688 3.25c3.145 2.202 5.557 5.558 7.025 10.171c1.468 4.614 2.202 10.8 2.202 18.455v10.38c0 7.655-.734 13.737-2.202 18.35c-1.468 4.615-3.775 7.97-7.025 10.172c-3.25 2.097-7.655 3.25-13.107 3.25c-5.663.105-10.067-1.048-13.317-3.145c-3.25-2.202-5.558-5.558-6.92-10.171c-1.364-4.614-1.993-10.696-1.993-18.35V65.22c0-7.655.734-13.946 2.307-18.56c1.573-4.718 3.984-8.074 7.34-10.17c3.355-2.098 7.654-3.251 13.002-3.251m181.822-28.73v37.748h.105c1.468-2.726 3.355-4.928 5.977-6.606a14.785 14.785 0 0 1 8.283-2.516c3.88 0 6.816 1.048 9.018 3.04c2.202 2.098 3.775 5.348 4.718 9.857c.915 4.368 1.435 10.409 1.467 18.027l.001.743v11.324c0 10.59-1.363 18.455-3.88 23.488c-2.62 5.033-6.605 7.55-12.058 7.55c-3.04 0-5.767-.734-8.283-2.097a14.68 14.68 0 0 1-5.35-5.392l-.208-.376h-.314l-1.678 6.816h-13.317V4.51zm-64.173 3.67V21.18h-15.938v85.039h-15.728V21.181H320.74V8.18zm-172.909 0l.01.04c.153.681 2.273 10.106 4.605 21.087l.184.87l.278 1.315l.186.883l.093.443l.186.888l.093.445l.185.891l.27 1.303c1.575 7.604 3.078 15.23 3.977 20.698h.42c.861-4.905 2.112-11.182 3.446-17.591l.35-1.674c.176-.838.352-1.676.53-2.512l.274-1.297a2039.272 2039.272 0 0 1 5.597-25.444l.03-.135l.048-.21h16.043l-18.56 66.165v31.771h-15.833V74.448h-.105l-18.35-66.27zm54.945 36.175c-2.202 0-3.67 1.154-4.613 3.566c-.944 2.411-1.363 6.081-1.363 11.22v22.334c0 5.243.419 9.122 1.258 11.43c.839 2.306 2.412 3.46 4.718 3.46c2.202 0 3.775-1.154 4.719-3.46c.944-2.308 1.363-6.187 1.363-11.43V59.139c0-5.138-.42-8.913-1.363-11.22c-.944-2.411-2.517-3.565-4.719-3.565m184.968 2.098c-1.278 1.18-2.187 2.635-2.728 4.454l-.103.369v40.684c1.3 2.202 3.146 3.67 6.396 3.775c1.678 0 3.04-.629 4.09-1.887c1.048-1.258 1.782-3.356 2.201-6.292c.403-2.818.613-6.7.629-11.644v-9.956c0-5.662-.21-9.961-.524-13.002c-.42-3.041-.943-5.243-1.887-6.501c-1.825-2.622-5.767-2.59-8.074 0m55.47-2.412c-1.783.105-3.042.629-3.776 1.573c-.838 1.048-1.363 2.621-1.677 4.928c-.309 2.26-.415 10.16-.42 10.476v5.148h11.744v-4.54v.087c-.007 1.587-.04-.921-.112-4l-.01-.414c-.066-2.706-.162-5.723-.297-6.757c-.315-2.412-.84-4.09-1.678-5.033c-.839-.944-2.097-1.468-3.775-1.468"
-            ></path>
           </svg>
         </div>
+      </div>
+      <div id="sidebar" className={isSidebarActive ? "activate" : "deactivate"}>
+        {currentSidebarParts.map((part, index) => (
+          <SidebarComponent id="part" key={index} svg={part.svg} name={part.name} />
+        ))}
       </div>
     </>
   );
 };
-const Sidebar = () => {
-  const sideBarParts = [
-    {
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="2em"
-          height="2em"
-          viewBox="0 0 24 24"
-        >
-          <path fill="white" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"></path>
-        </svg>
-      ),
-      name: "Home",
-    },
-    {
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="2em"
-          height="2em"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="white"
-            d="m18.931 9.99l-1.441-.601l1.717-.913a4.48 4.48 0 0 0 1.874-6.078a4.506 4.506 0 0 0-6.09-1.874L4.792 5.929a4.5 4.5 0 0 0-2.402 4.193a4.52 4.52 0 0 0 2.666 3.904c.036.012 1.442.6 1.442.6l-1.706.901a4.51 4.51 0 0 0-2.369 3.967A4.53 4.53 0 0 0 6.93 24c.725 0 1.437-.174 2.08-.508l10.21-5.406a4.49 4.49 0 0 0 2.39-4.192a4.53 4.53 0 0 0-2.678-3.904Zm-9.334 5.2V8.824l6.007 3.184z"
-          ></path>
-        </svg>
-      ),
-      name: "Shorts",
-    },
-    {
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="2em"
-          height="2em"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="white"
-            d="M4.616 21q-.691 0-1.153-.462T3 19.385v-8.77q0-.69.463-1.152T4.615 9h14.77q.69 0 1.152.463T21 10.616v8.769q0 .69-.463 1.153T19.385 21zm0-1h14.769q.23 0 .423-.192t.192-.424v-8.768q0-.231-.192-.424T19.385 10H4.615q-.23 0-.423.192T4 10.616v8.769q0 .23.192.423t.423.192m5.885-1.923L15.116 15L10.5 11.923zm-6-10.846v-1h15v1zm3-2.77v-1h9v1zM4 20V10z"
-          ></path>
-        </svg>
-      ),
-      name: "Subscriptions",
-    },
-    {
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="2em"
-          height="2em"
-          viewBox="0 0 24 24"
-        >
-          <path fill="white" d="M4 8H2v12a2 2 0 0 0 2 2h12v-2H4z"></path>
-          <path
-            fill="white"
-            d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2m-9 12V6l7 4z"
-          ></path>
-        </svg>
-      ),
-      name: "You",
-    },
-    {
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="2em"
-          height="2em"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="white"
-            d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"
-          ></path>
-        </svg>
-      ),
-      name: "History",
-    },
-  ];
 
-  return (
-    <>
-      <Menu />
-      {sideBarParts.map((part, index) => (
-        <SidebarComponent key={index} svg={part.svg} name={part.name} />
-      ))}
-    </>
-  );
-};
-
-export default Sidebar;
+export default Menu;

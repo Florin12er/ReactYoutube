@@ -1,12 +1,12 @@
 import Home from "./HomePage.jsx";
 import NavBar from "./NavBar.jsx";
-import Sidebar from "./SideBar.jsx";
+import Menu from "./SideBar.jsx";
 function App() {
   return (
     <>
       <div className="flex gap-1">
-        <div className="sidebar w-[120px]">
-          <Sidebar />
+        <div id="sidebar" className="deactivate">
+          <Menu/>
         </div>
         <div className="flex-1">
           <NavBar />

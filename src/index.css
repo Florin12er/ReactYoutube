@@ -10,6 +10,9 @@
 .app-grid-columns {
     grid-template-columns: repeat(2, 200px);
 }
+.sidebar-grid-columns {
+    grid-template-columns: repeat(2, 100px);
+}
 .custom-width {
     width: 450px;
 }
@@ -17,4 +20,9 @@ body {
     background: black;
     color: white;
 }
-
+.activate {
+    width: 300px;
+}
+.deactivate {
+    width: 100px;
+}

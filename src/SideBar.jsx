@@ -1,6 +1,7 @@
 import { Button } from "@headlessui/react";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import classNames from "classnames";
 
 const SidebarShortPart = [
   {
@@ -165,8 +166,8 @@ const SideBarBigPart = [
     svg: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="1em"
-        height="1em"
+        width="2em"
+        height="2em"
         viewBox="0 0 14 14"
       >
         <path
@@ -179,104 +180,94 @@ const SideBarBigPart = [
       </svg>
     ),
     name: "Trending",
+    id: "part",
   },
+  {
+    svg: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          fillRule="evenodd"
+          d="M12 2.25a.75.75 0 0 0-.75.75v11.26a4.25 4.25 0 1 0 1.486 2.888a.76.76 0 0 0 .014-.148V7.75H18a2.75 2.75 0 1 0 0-5.5zm.75 4H18a1.25 1.25 0 1 0 0-2.5h-5.25zm-4.25 8.5a2.75 2.75 0 1 0 0 5.5a2.75 2.75 0 0 0 0-5.5"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+    ),
+    name: "Music",
+    id: "part",
+  },
+     {
+        svg: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 16 16"><path fill="currentColor" d="M13.218 4.246L7.087 6.238a.5.5 0 0 1-.24.079L4.741 7H13.5a.5.5 0 0 1 .5.5v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 12.5v-5c0-.106.033-.205.09-.287l-.195-.602A2.5 2.5 0 0 1 3.5 3.461l6.657-2.163a2.5 2.5 0 0 1 3.15 1.605l.232.713a.5.5 0 0 1-.321.63m-3.744.165l1.285-2.226a1.5 1.5 0 0 0-.293.064l-1.245.404l-1.308 2.265zm2.295-1.979l-.02.037l-.854 1.48l1.538-.5l-.077-.237a1.5 1.5 0 0 0-.587-.78m-3.97.683l-1.56.507L4.93 5.887l1.56-.507zM2.923 6.54l.587-.19l1.307-2.266l-1.008.328a1.5 1.5 0 0 0-.963 1.89zM3 8v4.5A1.5 1.5 0 0 0 4.5 14h7a1.5 1.5 0 0 0 1.5-1.5V8z"></path></svg>
+        ),
+        name : "Movies",
+        id: "part"
+    }
 ];
-const SidebarComponent = ({ svg, name, id }) => {
-  return (
-    <>
-      <div id={id} className="w-full hover:bg-gray-500 rounded-xl">
-        <div className="flex justify-center items-center p-4">
-          <Button>{svg}</Button>
-        </div>
-        <h3 id="text" className="text-center text-xs">
-          {name}
-        </h3>
-      </div>
-    </>
-  );
-};
-
+const SidebarComponent = ({ svg, name, isActive }) => (
+  <div className={classNames("w-full rounded-xl", {
+    "hover:bg-gray-500 big grid sidebar-grid-columns items-center": isActive,
+    "hover:bg-gray-500 small": !isActive,
+  })}>
+    <div className="flex justify-center items-center p-4">
+      <Button>{svg}</Button>
+    </div>
+    <h3 className={classNames("text-center", {
+      "text-2xl": isActive,
+      "text-xs": !isActive,
+    })}>
+      {name}
+    </h3>
+  </div>
+);
 
 SidebarComponent.propTypes = {
-  svg: PropTypes.node, // Change this to PropTypes.node to accept JSX elements
+  svg: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };
-const Menu = () => {
-  const [isSidebarActive, setIsSidebarActive] = useState(false);
 
-  function ChangeTheme() {
-    const Sidebar = document.getElementById("sidebar");
-    const Parts = document.querySelectorAll("#part");
-    const Texts = document.querySelectorAll("#text");
-
-    setIsSidebarActive(!isSidebarActive);
-
-    if (Sidebar.className === "deactivate") {
-      Sidebar.className = "activate";
-      Parts.forEach((part) => {
-        part.className =
-          "w-full grid sidebar-grid-columns items-center hover:bg-gray-500 rounded-xl";
-      });
-      Texts.forEach((text) => {
-        text.className = "text-center text-2xl";
-      });
-    } else {
-      Sidebar.className = "deactivate";
-      Parts.forEach((part) => {
-        part.className = "w-full hover:bg-gray-500 rounded-xl";
-      });
-      Texts.forEach((text) => {
-        text.className = "text-center text-xs";
-      });
-    }
-  }
+const Menu = ({ onToggleSidebar, isSidebarActive }) => {
   const currentSidebarParts = isSidebarActive ? SideBarBigPart : SidebarShortPart;
+
   return (
     <>
       <div className="flex p-4 relative">
         <div
-          onClick={ChangeTheme}
+          onClick={onToggleSidebar}
           className="w-12 p-2 cursor-pointer hover:bg-zinc-400 rounded-full"
         >
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="2em"
-              height="2em"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="white"
-                d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z"
-              ></path>
-            </svg>
-          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+            <path fill="white" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z"></path>
+          </svg>
         </div>
         <div className="mt-2 ml-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="8.83em"
-            height="2em"
-            viewBox="0 0 512 116"
-          >
-            <path
-              fill="#f00"
-              d="M159.89 17.93a20.552 20.552 0 0 0-14.471-14.47C132.73 0 81.666 0 81.666 0S30.6.105 17.913 3.565a20.552 20.552 0 0 0-14.47 14.47c-3.838 22.545-5.327 56.896.105 78.538a20.552 20.552 0 0 0 14.47 14.47c12.688 3.46 63.753 3.46 63.753 3.46s51.065 0 63.753-3.46a20.552 20.552 0 0 0 14.47-14.47c4.047-22.576 5.295-56.906-.105-78.642"
-            ></path>
-            <path
-              fill="#fff"
-              d="m65.413 81.788l42.362-24.536l-42.362-24.537z"
-            ></path>
+          <svg xmlns="http://www.w3.org/2000/svg" width="8.83em" height="2em" viewBox="0 0 512 116">
+            <path fill="#f00" d="M159.89 17.93a20.552 20.552 0 0 0-14.471-14.47C132.73 0 81.666 0 81.666 0S30.6.105 17.913 3.565a20.552 20.552 0 0 0-14.47 14.47c-3.838 22.545-5.327 56.896.105 78.538a20.552 20.552 0 0 0 14.47 14.47c12.688 3.46 63.753 3.46 63.753 3.46s51.065 0 63.753-3.46a20.552 20.552 0 0 0 14.47-14.47c4.047-22.576 5.295-56.906-.105-78.642"></path>
+            <path fill="#fff" d="m65.413 81.788l42.362-24.536l-42.362-24.537z"></path>
           </svg>
         </div>
       </div>
-      <div id="sidebar" className={isSidebarActive ? "activate" : "deactivate"}>
-        {currentSidebarParts.map((part, index) => (
-          <SidebarComponent id="part" key={index} svg={part.svg} name={part.name} />
-        ))}
-      </div>
+      {currentSidebarParts.map((part, index) => (
+        <SidebarComponent
+          key={index}
+          svg={part.svg}
+          name={part.name}
+          isActive={isSidebarActive}
+        />
+      ))}
     </>
   );
+};
+
+Menu.propTypes = {
+  onToggleSidebar: PropTypes.func.isRequired,
+  isSidebarActive: PropTypes.bool.isRequired,
 };
 
 export default Menu;

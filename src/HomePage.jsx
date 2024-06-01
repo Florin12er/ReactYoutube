@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const VideoComponent = ({ title, channelName, logo, views, time, videoId }) => {
   const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
@@ -42,7 +43,7 @@ VideoComponent.propTypes = {
   videoId: PropTypes.string.isRequired,
   logo: PropTypes.string,
 };
-const Home = () => {
+const Home = ({grid}) => {
   const videos = [
     {
       views: "300k",
@@ -106,12 +107,9 @@ const Home = () => {
       logo: "https://yt3.googleusercontent.com/ytc/AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw=s160-c-k-c0x00ffffff-no-rj",
     },
   ];
-  function ChangeGrid() {
-    const grid = document.querySelectorAll("#part");
-  }
   return (
     <>
-      <div className="grid home-grid-columns">
+      <div className={grid}>
         {videos.map((video, index) => (
           <VideoComponent
             key={index}

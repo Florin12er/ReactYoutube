@@ -48,7 +48,7 @@ function App() {
             isSidebarActive={isSidebarActive}
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 LeftPart">
           <NavBar />
           <Home grid={isSidebarActive ? "smalllGrid" : "biggGrid"} />
         </div>

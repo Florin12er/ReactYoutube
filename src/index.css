@@ -77,9 +77,12 @@ body {
 }
 
 }
-@media (max-width: 1100px) {
+body {
+    opacity: 0.5;
+}
 
-.biggGrid {
+@media (max-width: 1100px) {
+    .biggGrid {
     display: grid;
     grid-template-columns: repeat(1, 500px);
 }
